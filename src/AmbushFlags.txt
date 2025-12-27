@@ -1,6 +1,6 @@
 kuribo:Goomba
-trap:Sand Trap of the Spiny ambush
+trap:Antlion pit (Spiny)
 HBros:Ice Bros
-Puku:Porcopuffer
+Puku:Porcupuffer
 Pak:Stalking Piranha Plant
 Jug:Lakitu

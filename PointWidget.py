@@ -1,5 +1,5 @@
 import re
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt6 import QtCore, QtWidgets, QtGui
 
 Qt = QtCore.Qt
 
@@ -9,13 +9,13 @@ class PointEditorWidget(QtWidgets.QWidget):
         QtWidgets.QWidget.__init__(self)
 
         self.point_flags = {}
-        with open('RouteEditData/PointFlags.txt', 'rt') as f:
+        with open('src/PointFlags.txt', 'rt') as f:
             for line in f:
                 (name, desc) = line.split(':')
                 self.point_flags[name] = desc
 
         self.ambush_flags = {}
-        with open('RouteEditData/AmbushFlags.txt', 'rt') as f:
+        with open('src/AmbushFlags.txt', 'rt') as f:
             for line in f:
                 (name, desc) = line.split(':')
                 self.point_flags[name] = desc
@@ -36,10 +36,10 @@ class PointEditorWidget(QtWidgets.QWidget):
         self.exportButton = QtWidgets.QPushButton('Export')
 
         # Add Icons
-        self.addRowButton.setIcon(QtGui.QIcon('RouteEditData/icons/plus.png'))
-        self.delRowButton.setIcon(QtGui.QIcon('RouteEditData/icons/minus.png'))
-        self.importButton.setIcon(QtGui.QIcon('RouteEditData/icons/import.png'))
-        self.exportButton.setIcon(QtGui.QIcon('RouteEditData/icons/export.png'))
+        self.addRowButton.setIcon(QtGui.QIcon('src/icon/plus.png'))
+        self.delRowButton.setIcon(QtGui.QIcon('src/icon/minus.png'))
+        self.importButton.setIcon(QtGui.QIcon('src/icon/import.png'))
+        self.exportButton.setIcon(QtGui.QIcon('src/icon/export.png'))
 
         # Default Widgets to disabled
         self.fileSelector.setDisabled(True)
@@ -58,13 +58,13 @@ class PointEditorWidget(QtWidgets.QWidget):
 
         # add widgets to layout
         topLayout = QtWidgets.QHBoxLayout()
-        topLayout.addWidget(self.fileSelector, 1, Qt.AlignVCenter)
-        topLayout.addWidget(self.importButton, 0, Qt.AlignVCenter)
-        topLayout.addWidget(self.exportButton, 0, Qt.AlignVCenter)
+        topLayout.addWidget(self.fileSelector, 1, Qt.AlignmentFlag.AlignVCenter)
+        topLayout.addWidget(self.importButton, 0, Qt.AlignmentFlag.AlignVCenter)
+        topLayout.addWidget(self.exportButton, 0, Qt.AlignmentFlag.AlignVCenter)
 
         bottomLayout = QtWidgets.QHBoxLayout()
-        bottomLayout.addWidget(self.addRowButton, 1, Qt.AlignVCenter)
-        bottomLayout.addWidget(self.delRowButton, 1, Qt.AlignVCenter)
+        bottomLayout.addWidget(self.addRowButton, 1, Qt.AlignmentFlag.AlignVCenter)
+        bottomLayout.addWidget(self.delRowButton, 1, Qt.AlignmentFlag.AlignVCenter)
         bottomLayout.insertStretch(2, 2)
 
         self.layout.addLayout(topLayout)
@@ -158,7 +158,7 @@ class PointEditorWidget(QtWidgets.QWidget):
         self.pointEntries.delRow()
 
     def importData(self):
-        fileName = QtWidgets.QFileDialog.getOpenFileName(self, 'Import file', '', 'csv files (*.csv)')[0]
+        fileName = QtWidgets.QFileDialog.getOpenFileName(self, 'Import file', '', 'Comma-Separated Values Source File (*.csv)')[0]
 
         if fileName == '':
             return
@@ -177,7 +177,7 @@ class PointEditorWidget(QtWidgets.QWidget):
 
     def exportData(self):
         file = self.pointEntries.saveContents()
-        path = QtWidgets.QFileDialog.getSaveFileName(self, 'Export file', '' +self.currentLoadedFile, 'csv files (*.csv)')[0]
+        path = QtWidgets.QFileDialog.getSaveFileName(self, 'Export file', '' +self.currentLoadedFile, 'Comma-Separated Values Source File (*.csv)')[0]
 
         if path == '':
             return
@@ -196,12 +196,12 @@ class PointEntryTable(QtWidgets.QTableWidget):
         # Setup Table Properties
         self.setColumnCount(9)
         self.setAlternatingRowColors(True)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
 
         # Setup Header Bar
         header = self.horizontalHeader()
         header.setStretchLastSection(True)
-        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
         self.setHorizontalHeaderItem(0, QtWidgets.QTableWidgetItem('ID'))
         self.setHorizontalHeaderItem(1, QtWidgets.QTableWidgetItem('Node Name'))
         self.setHorizontalHeaderItem(2, QtWidgets.QTableWidgetItem('Node Flag'))

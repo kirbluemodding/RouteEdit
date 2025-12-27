@@ -1,5 +1,5 @@
 import re
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt6 import QtCore, QtWidgets, QtGui
 
 Qt = QtCore.Qt
 
@@ -24,10 +24,10 @@ class RouteEditorWidget(QtWidgets.QWidget):
         self.exportButton = QtWidgets.QPushButton('Export')
 
         # Add Icons
-        self.addRowButton.setIcon(QtGui.QIcon('RouteEditData/icons/plus.png'))
-        self.delRowButton.setIcon(QtGui.QIcon('RouteEditData/icons/minus.png'))
-        self.importButton.setIcon(QtGui.QIcon('RouteEditData/icons/import.png'))
-        self.exportButton.setIcon(QtGui.QIcon('RouteEditData/icons/export.png'))
+        self.addRowButton.setIcon(QtGui.QIcon('src/icon/plus.png'))
+        self.delRowButton.setIcon(QtGui.QIcon('src/icon/minus.png'))
+        self.importButton.setIcon(QtGui.QIcon('src/icon/import.png'))
+        self.exportButton.setIcon(QtGui.QIcon('src/icon/export.png'))
 
         # Default Widgets to disabled
         self.fileSelector.setDisabled(True)
@@ -46,13 +46,13 @@ class RouteEditorWidget(QtWidgets.QWidget):
 
         # add widgets to layout
         topLayout = QtWidgets.QHBoxLayout()
-        topLayout.addWidget(self.fileSelector, 1, Qt.AlignVCenter)
-        topLayout.addWidget(self.importButton, 0, Qt.AlignVCenter)
-        topLayout.addWidget(self.exportButton, 0, Qt.AlignVCenter)
+        topLayout.addWidget(self.fileSelector, 1, Qt.AlignmentFlag.AlignVCenter)
+        topLayout.addWidget(self.importButton, 0, Qt.AlignmentFlag.AlignVCenter)
+        topLayout.addWidget(self.exportButton, 0, Qt.AlignmentFlag.AlignVCenter)
 
         bottomLayout = QtWidgets.QHBoxLayout()
-        bottomLayout.addWidget(self.addRowButton, 1, Qt.AlignVCenter)
-        bottomLayout.addWidget(self.delRowButton, 1, Qt.AlignVCenter)
+        bottomLayout.addWidget(self.addRowButton, 1, Qt.AlignmentFlag.AlignVCenter)
+        bottomLayout.addWidget(self.delRowButton, 1, Qt.AlignmentFlag.AlignVCenter)
         bottomLayout.insertStretch(2, 2)
 
         self.layout.addLayout(topLayout)
@@ -145,7 +145,7 @@ class RouteEditorWidget(QtWidgets.QWidget):
         self.routeEntries.delRow()
 
     def importData(self):
-        fileName = QtWidgets.QFileDialog.getOpenFileName(self, 'Import file', '', 'csv files (*.csv)')[0]
+        fileName = QtWidgets.QFileDialog.getOpenFileName(self, 'Import file', '', 'Comma-Separated Values Source File (*.csv)')[0]
 
         if fileName == '':
             return
@@ -164,7 +164,7 @@ class RouteEditorWidget(QtWidgets.QWidget):
 
     def exportData(self):
         file = self.routeEntries.saveContents()
-        path = QtWidgets.QFileDialog.getSaveFileName(self, 'Export file', '' +self.currentLoadedFile, 'csv files (*.csv)')[0]
+        path = QtWidgets.QFileDialog.getSaveFileName(self, 'Export file', '' +self.currentLoadedFile, 'Comma-Separated Values Source File (*.csv)')[0]
 
         if path == '':
             return
@@ -180,12 +180,12 @@ class RouteEntryTable(QtWidgets.QTableWidget):
         # Setup Table Properties
         self.setColumnCount(2)
         self.setAlternatingRowColors(True)
-        self.setSelectionMode(QtWidgets.QAbstractItemView.SingleSelection)
+        self.setSelectionMode(QtWidgets.QAbstractItemView.SelectionMode.SingleSelection)
 
         # Setup Header Bar
         header = self.horizontalHeader()
         header.setStretchLastSection(True)
-        header.setSectionResizeMode(QtWidgets.QHeaderView.Stretch)
+        header.setSectionResizeMode(QtWidgets.QHeaderView.ResizeMode.Stretch)
         self.setHorizontalHeaderItem(0, QtWidgets.QTableWidgetItem('Path'))
         self.setHorizontalHeaderItem(1, QtWidgets.QTableWidgetItem('Action'))
 
@@ -249,7 +249,7 @@ class ActionEditor(QtWidgets.QComboBox):
 
         # Create a dictionary to translate the action names from jp to english
         self.actions = {}
-        with open('RouteEditData/Actions.txt', 'rt', encoding='utf-8-sig') as f:
+        with open('src/Actions.txt', 'rt', encoding='utf-8-sig') as f:
             for line in f:
                 (jp, eng) = line.split(':')
                 eng = str(eng).strip('\n')

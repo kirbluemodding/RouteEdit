@@ -3,7 +3,7 @@ import RouteWidget
 
 from u8 import Arc
 import sys
-from PyQt5 import QtCore, QtWidgets, QtGui
+from PyQt6 import QtCore, QtWidgets, QtGui
 
 Qt = QtCore.Qt
 
@@ -14,10 +14,10 @@ class MainWindow(QtWidgets.QMainWindow):
         self.setWindowTitle('RouteEdit')
         self.setGeometry(500, 500, 1500, 750)
 
-        self.saveFile = QtWidgets.QAction(QtGui.QIcon('RouteEditData/icons/save.png'), '&Save', self)
-        self.saveAsFile = QtWidgets.QAction(QtGui.QIcon('RouteEditData/icons/saveAs.png'), '&Save As', self)
-        self.openFile = QtWidgets.QAction(QtGui.QIcon('RouteEditData/icons/folder.png'), '&Open', self)
-        self.closeFile = QtWidgets.QAction(QtGui.QIcon('RouteEditData/icons/close.png'), '&Close', self)
+        self.saveFile = QtGui.QAction(QtGui.QIcon('src/icon/save.png'), '&Save', self)
+        self.saveAsFile = QtGui.QAction(QtGui.QIcon('src/icon/saveAs.png'), '&Save As', self)
+        self.openFile = QtGui.QAction(QtGui.QIcon('src/icon/folder.png'), '&Open', self)
+        self.closeFile = QtGui.QAction(QtGui.QIcon('src/icon/close.png'), '&Close', self)
 
         self.editor = EditorTabWidget()
 
@@ -123,10 +123,9 @@ class MainWindow(QtWidgets.QMainWindow):
             f.write(newArchive.to_bytes())
 
     def closeSarc(self):
-        closeDialog = QtWidgets.QMessageBox
-        ret = closeDialog.question(self, '', 'Close the current file?', closeDialog.Yes | closeDialog.No)
+        ret = QtWidgets.QMessageBox.question(self, 'RouteEdit', 'Close the current file?', QtWidgets.QMessageBox.StandardButton.Yes | QtWidgets.QMessageBox.StandardButton.No)
 
-        if ret == closeDialog.Yes:
+        if ret == QtWidgets.QMessageBox.StandardButton.Yes:
             self.editor.closeFile()
             self.editor.setDisabled(True)
             self.saveFile.setDisabled(True)
@@ -184,4 +183,4 @@ if __name__ == '__main__':
     window = MainWindow()
     window.show()
 
-    sys.exit(app.exec_())
+    sys.exit(app.exec())

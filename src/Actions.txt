@@ -1,0 +1,19 @@
+﻿ジャンプ:Jump; towards the next node
+道:Walk; produces generic cloud particles and grass-like sounds.
+砂:Walk; produces sand particles and sounds.
+流砂:Walk; produces "quicksand" particles, which are brighter than regular sand. Used in World 2's ambush sand paths.
+雪:Walk; produces snow particles and sounds.
+氷:Walk; produces ice particles and sounds.
+木:Walk; produces wood sounds and generic particles.
+土:Walk; produces generic sounds and dirt particles.
+坂:Slope; uses a sliding animation when going down, and produces snow particles and sounds otherwise.
+氷坂:Slope; uses a sliding animation when going down, and produces ice particles and sounds otherwise.
+はしご:Metallic ladder; faces up/away from the camera.
+はしご岩:Rock ladder; faces up/away from the camera.
+はしご縄:Rope ladder; faces up/away from the camera.
+はしご左:Metallic ladder; facing left.
+はしご右:Metallic ladder; facing right.
+ツタ:Beanstalk; faces up/away from the camera.
+スイッチブロック:Unused; behavior changes based on the switch block in W3. Walks towards the next node if enabled, jumping across otherwise.
+雲:Unused; Uses the standard walking animation.
+水:Unused; Uses the standard walking animation.
